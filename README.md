@@ -51,7 +51,7 @@ python3 tic_tac_toe.py
 
 ### Live Demo:
 
-[🔗 View Deployed App on Render](https://your-app-name.onrender.com) 
+[🔗 View Live App on](https://tic-tac-toe-webapp-6mnb.onrender.com/) 
 
 ### How to Run Locally:
 
