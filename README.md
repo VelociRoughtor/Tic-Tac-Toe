@@ -18,8 +18,11 @@ tic-tac-toe/
 └── tic_tac_toe_webapp/
   ├── app.py                        # Flask backend
   ├── logic.py                      # Game logic for webapp
+  ├── requirements.txt
+  ├── __pycache__
+  | └── logic.cpython-310.pyc
   ├── static/
-  │   └── style.css                 # Styling
+  │   └── screenshots               # Styling
   ├── templates/
   │   └── index.html                # HTML frontend
 
@@ -107,8 +110,9 @@ flask
 
 ## 🖼 Screenshot
 
-[WebApp Preview](tic_tac_toe_webapp/static/screenshot.png)
-
+[WebApp Preview](tic_tac_toe_webapp/static/screenshot1.png)
+[WebApp Preview](tic_tac_toe_webapp/static/screenshot2.png)
+[WebApp Preview](tic_tac_toe_webapp/static/screenshot3.png)
 ---
 
 ## 📄 License
