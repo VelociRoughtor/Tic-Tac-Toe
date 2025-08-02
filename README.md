@@ -110,9 +110,10 @@ flask
 
 ## 🖼 Screenshot
 
-[WebApp Preview](tic_tac_toe_webapp/static/screenshot1.png)
-[WebApp Preview](tic_tac_toe_webapp/static/screenshot2.png)
-[WebApp Preview](tic_tac_toe_webapp/static/screenshot3.png)
+![Game UI 3](tic_tac_toe_webapp/static/screenshot1.png)
+![Game UI 1](tic_tac_toe_webapp/static/screenshot2.png)
+![Game UI 2](tic_tac_toe_webapp/static/screenshot3.png)
+
 ---
 
 ## 📄 License
