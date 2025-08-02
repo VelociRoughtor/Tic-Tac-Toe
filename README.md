@@ -16,12 +16,12 @@ tic-tac-toe/
 ├── terminal-game/
 │   └── tic_tac_toe.py              # Command-line game
 └── tic_tac_toe_webapp/
-├── app.py                            # Flask backend
-├── logic.py                          # Game logic for webapp
-├── static/
-│   └── style.css                     # Styling
-├── templates/
-│   └── index.html                        # HTML frontend
+  ├── app.py                        # Flask backend
+  ├── logic.py                      # Game logic for webapp
+  ├── static/
+  │   └── style.css                 # Styling
+  ├── templates/
+  │   └── index.html                # HTML frontend
 
 ````
 
