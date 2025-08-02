@@ -110,9 +110,9 @@ flask
 
 ## 🖼 Screenshot
 
-![Game UI 3](tic_tac_toe_webapp/static/screenshot1.png)
-![Game UI 1](tic_tac_toe_webapp/static/screenshot2.png)
-![Game UI 2](tic_tac_toe_webapp/static/screenshot3.png)
+![Game UI 3](tic_tac_toe_webapp/static/screenshot_01.png)
+![Game UI 1](tic_tac_toe_webapp/static/screenshot_02.png)
+![Game UI 2](tic_tac_toe_webapp/static/screenshot_03.png)
 
 ---
 
