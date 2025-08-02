@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe vs AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center px-4">
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">Player vs Computer</h1>
+
+    <!-- Symbol Selection -->
+    <div id="symbolSelect" class="mb-4 text-center">
+        <p class="mb-2 text-lg font-semibold">Choose Your Symbol:</p>
+        <button onclick="selectSymbol('X')" class="px-4 py-2 bg-red-500 text-white font-bold rounded-lg mr-2">X</button>
+        <button onclick="selectSymbol('O')" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-lg">O</button>
+    </div>
+
+    <!-- Difficulty Selection -->
+    <div id="difficultySelect" class="mb-4 text-center hidden">
+        <p class="mb-2 text-lg font-semibold">Select Difficulty:</p>
+        <button onclick="selectDifficulty('easy')"
+            class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg mr-2">Easy</button>
+        <button onclick="selectDifficulty('medium')"
+            class="px-4 py-2 bg-yellow-500 text-white font-bold rounded-lg mr-2">Medium</button>
+        <button onclick="selectDifficulty('hard')"
+            class="px-4 py-2 bg-red-600 text-white font-bold rounded-lg">Hard</button>
+    </div>
+
+    <!-- Game Board -->
+    <div id="board" class="grid grid-cols-3 gap-2 w-[300px] sm:w-[360px] aspect-square mb-6 hidden"></div>
+
+    <!-- Message -->
+    <div id="message" class="text-xl text-green-600 font-semibold h-8 text-center"></div>
+
+    <!-- Restart -->
+    <button id="restartBtn"
+        class="mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 transition hidden">
+        Restart Game
+    </button>
+
+    <script>
+        let board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
+        let playerSymbol = '';
+        let aiSymbol = '';
+        let difficulty = '';
+
+        const boardDiv = document.getElementById("board");
+        const message = document.getElementById("message");
+        const restartBtn = document.getElementById("restartBtn");
+        const symbolSelect = document.getElementById("symbolSelect");
+        const difficultySelect = document.getElementById("difficultySelect");
+
+        function selectSymbol(symbol) {
+            playerSymbol = symbol;
+            aiSymbol = symbol === 'X' ? 'O' : 'X';
+            symbolSelect.classList.add('hidden');
+            difficultySelect.classList.remove('hidden');
+        }
+
+        function selectDifficulty(level) {
+            difficulty = level;
+            difficultySelect.classList.add('hidden');
+            boardDiv.classList.remove('hidden');
+            restartBtn.classList.remove('hidden');
+            renderBoard();
+        }
+
+        function renderBoard() {
+            boardDiv.innerHTML = "";
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    const cell = document.createElement("div");
+                    cell.className = "flex items-center justify-center bg-white border border-gray-300 h-24 sm:h-28 text-4xl font-bold cursor-pointer select-none";
+                    const mark = board[i][j];
+                    cell.textContent = mark;
+                    cell.dataset.row = i;
+                    cell.dataset.col = j;
+
+                    if (mark === 'O') {
+                        cell.classList.add("text-blue-500");
+                    } else if (mark === 'X') {
+                        cell.classList.add("text-red-500");
+                    }
+
+                    if (mark === ' ' && message.textContent === '') {
+                        cell.addEventListener("click", handleClick);
+                    } else {
+                        cell.classList.add("text-gray-400");
+                    }
+
+                    boardDiv.appendChild(cell);
+                }
+            }
+        }
+
+        function handleClick(e) {
+            const row = parseInt(e.target.dataset.row);
+            const col = parseInt(e.target.dataset.col);
+
+            if (board[row][col] !== ' ' || message.textContent !== '') return;
+
+            board[row][col] = playerSymbol;
+            renderBoard();
+
+            setTimeout(() => {
+                fetch('/move', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ board, move: [row, col], player: playerSymbol, difficulty })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        board = data.board;
+                        renderBoard();
+                        if (data.winner) {
+                            if (data.winner === 'Draw') {
+                                message.textContent = "It's a Draw!";
+                            } else if (data.winner === playerSymbol) {
+                                message.textContent = "Player Wins!";
+                            } else {
+                                message.textContent = "Computer Wins!";
+                            }
+                        }
+                    });
+            }, 400);
+        }
+
+        restartBtn.addEventListener("click", () => {
+            board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
+            message.textContent = "";
+            playerSymbol = '';
+            aiSymbol = '';
+            difficulty = '';
+            boardDiv.classList.add("hidden");
+            restartBtn.classList.add("hidden");
+            symbolSelect.classList.remove("hidden");
+        });
+    </script>
+</body>
+
+</html>
